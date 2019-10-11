@@ -1,6 +1,7 @@
 ;; Global Emacs config
 (tool-bar-mode -1)
 (setq ring-tell-function 'ignore)
+(menu-bar-mode -1)
 
 ;; Packages: Melpa Elpla
 (require 'package)
@@ -119,6 +120,7 @@
   (interactive)
   (cider-connect '(:host "localhost" :port "55555"))
   (message "Connected"))
+
 ;; Cider
 (setq cider-prompt-for-symbol nil)
 (setq cider-eldoc-display-for-symbol-at-point t)
@@ -157,7 +159,7 @@
  'helm-after-initialize-hook
  (lambda()
    (define-key helm-buffer-map (kbd "§") 'helm-keyboard-quit)
-   (define-key helm-M-x-map (kbd "§") 'helm-keyboard-quit)
+   ;;(define-key helm-M-x-map (kbd "§") 'helm-keyboard-quit)
    (define-key helm-map (kbd "§") 'helm-keyboard-quit)))
 (helm-mode 1)
 
