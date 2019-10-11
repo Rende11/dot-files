@@ -186,7 +186,7 @@
  '(helm-recentf-fuzzy-match t t)
  '(package-selected-packages
    (quote
-    (helm-ag ag exec-path-from-shell popwin evil-magit dashboard auto-complete-auctex auto-complete ivy window-layout nlinum evil-paredit paredit company-web helm-descbinds projectile magit cider clojure-mode 4clojure company evil-escape helm evil)))
+    (clj-refactor helm-ag ag exec-path-from-shell popwin evil-magit dashboard auto-complete-auctex auto-complete ivy window-layout nlinum evil-paredit paredit company-web helm-descbinds projectile magit cider clojure-mode 4clojure company evil-escape helm evil)))
  '(scroll-bar-mode (quote right)))
 
 
@@ -233,6 +233,43 @@
 (add-hook 'view-mode-hook 'evil-emacs-state)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 
+(load-theme 'tsdh-light)
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . light))
+
+(set-face-attribute 'default nil :font "Inconsolata LGC 14")
+;; (setq default-frame-alist '((font . "Inconsolata LGC 14")))
+(setq-default line-spacing 0)
+(setq initial-frame-alist '((width . 135) (height . 55)))
+(tool-bar-mode -1)
+
+(set-face-background 'show-paren-match "wheat")
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+(show-paren-mode)
+(setq org-startup-truncated nil)
+(setq column-number-mode t) ;; show columns in addition to rows in mode line
+(setq-default frame-title-format "%b (%f)")
+(setq-default indent-tabs-mode nil)
+(setq tab-width 2)
+(setq js-indent-level 2)
+(setq css-indent-offset 2)
+(setq-default c-basic-offset 2)
+(setq c-basic-offset 2)
+(setq-default tab-width 2)
+(setq-default c-basic-indent 2)
+(blink-cursor-mode 0)
+(global-visual-line-mode t)
+
+(use-package clojure-mode)
+(use-package cider)
+(use-package clj-refactor)
+
+(defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1) ; for adding require/use/import statements
+    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+    (cljr-add-keybindings-with-prefix "C-c C-m"))
+(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
