@@ -156,9 +156,9 @@
 (add-hook
  'helm-after-initialize-hook
  (lambda()
-   (define-key helm-buffer-map (kbd "ESC") 'helm-keyboard-quit)
-   (define-key helm-M-x-map (kbd "ESC") 'helm-keyboard-quit)
-   (define-key helm-map (kbd "ESC") 'helm-keyboard-quit)))
+   (define-key helm-buffer-map (kbd "§") 'helm-keyboard-quit)
+   (define-key helm-M-x-map (kbd "§") 'helm-keyboard-quit)
+   (define-key helm-map (kbd "§") 'helm-keyboard-quit)))
 (helm-mode 1)
 
 ;; Colors
