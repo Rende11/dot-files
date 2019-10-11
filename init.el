@@ -1,6 +1,7 @@
-;; Global Emacs config 
+;; Global Emacs config
 (tool-bar-mode -1)
 (setq ring-tell-function 'ignore)
+
 ;; Packages: Melpa Elpla
 (require 'package)
 (add-to-list 'package-archives (cons "melpa" "https://melpa.org/packages/") t)
@@ -15,17 +16,32 @@
 
 (setq use-package-always-ensure t)
 
+
+;; - Evil mode
+(add-to-list 'load-path "~/.emacs.d/evil")
+(require 'evil) 
+(evil-mode 1)
+
+
+;; Evil escape
+(use-package evil
+ :ensure t
+ :config
+ (evil-mode 1)
+ (define-key evil-insert-state-map "§" 'evil-normal-state))
+
 ;; Custom Railscasts
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;;(load-theme 'railscasts-reloaded-custom t nil)
 
 ;; Custom packages
 ;;(add-to-list 'load-path "~/.emacs.d/escreen")
-;;(add-to-list 'load-path "~/.emacs.d/alkona")
-;;(load "alkona")
 
 ;;(exec-path-from-shell-initialize)
 (setenv "PGPASSWORD" "postgres")
+
+(define-key evil-normal-state-map (kbd "RET") 'run-sql)
+
 ;;(add-to-list 'load-path "~/.emacs.d/packages/psql")
 ;;(load "psql")
 
@@ -35,13 +51,7 @@
 ;; - Popwin
 
 ;;(require 'popwin)
-;; - Evil
-(add-to-list 'load-path "~/.emacs.d/evil")
-(require 'evil) 
-(evil-mode 1)
-;;(evil-escape-mode 1)
-(define-key evil-normal-state-map (kbd "RET") 'run-sql)
-(hs-minor-mode 1)
+
 
 ;; - Helm 
 (use-package helm)
@@ -80,13 +90,13 @@
 ;; - Cider
 ;;(global-eldoc-mode 1)
 (setq-default cider-repl-display-help-banner nil)
-(add-hook 'cider-repl-mode-hook #'company-mode)
-(add-hook 'cider-mode-hook #'company-mode)
+;;(add-hook 'cider-repl-mode-hook #'company-mode)
+;;(add-hook 'cider-mode-hook #'company-mode)
 
-(add-hook 'after-init-hook 'global-company-mode)
-(add-hook 'clojure-mode-hook (lambda () (paredit-mode 1) ))
-(add-hook 'cider-repl-mode-hook (lambda () (paredit-mode 1) ))
-(add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode 1)))
+;;(add-hook 'after-init-hook 'global-company-mode)
+;;(add-hook 'clojure-mode-hook (lambda () (paredit-mode 1) ))
+;;(add-hook 'cider-repl-mode-hook (lambda () (paredit-mode 1) ))
+;;(add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode 1)))
 ;;--------------------------------------------
 ;; Bindings 
 ;;--------------------------------------------
@@ -149,7 +159,7 @@
    (define-key helm-buffer-map (kbd "ESC") 'helm-keyboard-quit)
    (define-key helm-M-x-map (kbd "ESC") 'helm-keyboard-quit)
    (define-key helm-map (kbd "ESC") 'helm-keyboard-quit)))
-;;(helm-mode 1)
+(helm-mode 1)
 
 ;; Colors
 ;;(set-background-color "#252525")
@@ -166,11 +176,12 @@
  '(custom-safe-themes
    (quote
     ("6343f4d41b209fe8990e3c5f4d2040b359612ef9cd8682f1e1e2a836beba8107" default)))
- '(helm-M-x-fuzzy-match t)
+ '(helm-M-x-fuzzy-match t t)
  '(helm-buffer-max-length 80)
  '(helm-buffers-fuzzy-matching t)
  '(helm-display-header-line nil)
- '(helm-recentf-fuzzy-match t)
+ '(helm-follow-mode-persistent t)
+ '(helm-recentf-fuzzy-match t t)
  '(package-selected-packages
    (quote
     (helm-ag ag exec-path-from-shell popwin evil-magit dashboard auto-complete-auctex auto-complete ivy window-layout nlinum evil-paredit paredit company-web helm-descbinds projectile magit cider clojure-mode 4clojure company evil-escape helm evil)))
@@ -211,13 +222,19 @@
 ;; Global Emacs config 
 (toggle-frame-fullscreen)
 (scroll-bar-mode -1)
-(hs-minor-mode 1)
+;;(hs-minor-mode 1)
 (setq ring-bell-function 'ignore)
 
 ;;(setq cider-clojure-cli-parameters "-A:dev:test:nrepl")
 ;;(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
 
-;;(add-hook 'view-mode-hook 'evil-emacs-state)
+(add-hook 'view-mode-hook 'evil-emacs-state)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 
-(custom-set-variables
- '(helm-follow-mode-persistent t))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
